@@ -29,13 +29,20 @@ app.post('/users', users.post)
 const teams = require('./models/teams')
 app.get('/teams', teams.get)
 app.get('/teams/:id', teams.getByID)
-app.get('/teams/members/:id', teams.getMembers)
 app.post('/teams', teams.post)
 
 const team_members = require('./models/team_members')
 app.get('/team_members', team_members.get)
 app.get('/team_members/:id', team_members.getByID)
+app.get('/team_members/team/:id', team_members.getMembers)
 app.post('/team_members', team_members.post)
+
+
+
+
+
+
+
 
 
 
