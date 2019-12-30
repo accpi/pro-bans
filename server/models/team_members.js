@@ -1,13 +1,13 @@
 const { pool } = require('../config')
 const debug = require('debug');
-const log = debug('express:users');
+const log = debug('express:teams');
 
 const axios = require('axios');
 
 const get = (request, response) => {
     try {
         pool.query(
-            'SELECT * FROM users ORDER BY id ASC', 
+            'SELECT * FROM team_members ORDER BY id ASC', 
             (error, results) => {
                 if (error) {
                     log('Express (get): ' + error)
@@ -30,7 +30,7 @@ const getByID = (request, response) => {
 
     try {
         pool.query(
-            'SELECT * FROM users where id = $1', 
+            'SELECT * FROM team_members where id = $1', 
             [id], 
             (error, results) => {
                 if (error) {
@@ -50,39 +50,27 @@ const getByID = (request, response) => {
 }
 
 const post = (request, response) => {
-    const { summoner_name, discord_name } = request.body
+    const { user_id, team_id } = request.body
 
-    axios.get(
-        'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summoner_name, 
-        {
-            headers: { 'X-Riot-Token': process.env.RIOT_API_KEY }
-        }
-    )
-    .then(res => {
-        account_id = res.data.accountId
-        try {
-            pool.query(
-                'Insert INTO users (summoner_name, account_id, discord_name) VALUES ($1, $2, $3) returning *', 
-                [summoner_name, account_id, discord_name], 
-                (error, results) => {
-                    if (error) {
-                        log('Express (post): ' + error)
-                        response.status(500).send(error)  
-                    }
-                    else {
-                        response.status(201).send(results.rows[0])
-                    }
+    try {
+        pool.query(
+            'Insert INTO team_members (user_id, team_id) VALUES ($1, $2) returning *', 
+            [user_id, team_id], 
+            (error, results) => {
+                if (error) {
+                    log('Express (post): ' + error)
+                    response.status(500).send(error)  
                 }
-            )
-        }
-        catch (error) {
-            log('Express (post): ' + error)
-            response.status(500).send(error)
-        }
-    })
-    .catch(error => {
-        response.status(500).json(error)
-    });
+                else {
+                    response.status(201).send(results.rows[0])
+                }
+            }
+        )
+    }
+    catch (error) {
+        log('Express (post): ' + error)
+        response.status(500).send(error)
+    }
 
 }
 
