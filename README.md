@@ -19,4 +19,6 @@ npm start
 
 API validation
 
+Styling
+
 Everything else
