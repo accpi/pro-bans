@@ -53,7 +53,7 @@ const getMembers = (request, response) => {
     const id = parseInt(request.params.id)
     try {
         pool.query(
-            'SELECT users.* FROM team_members join users on team_members.user_id = users.id where team_members.team_id = $1', 
+            'SELECT users.* FROM team_members JOIN users ON team_members.user_id = users.id WHERE team_members.team_id = $1', 
             [id], 
             (error, results) => {
                 if (error) {

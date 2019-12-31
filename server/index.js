@@ -37,8 +37,11 @@ app.get('/team_members/:id', team_members.getByID)
 app.get('/team_members/team/:id', team_members.getMembers)
 app.post('/team_members', team_members.post)
 
-
-
+const match_histories = require('./models/match_histories')
+app.get('/match_histories', match_histories.get)
+app.get('/match_histories/:id', match_histories.getByID)
+app.get('/match_histories/user/:id', match_histories.getByUserID)
+app.post('/match_histories', match_histories.post)
 
 
 

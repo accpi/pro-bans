@@ -59,11 +59,11 @@ const post = (request, response) => {
         }
     )
     .then(res => {
-        account_id = res.data.accountId
+        puuid = res.data.puuid
         try {
             pool.query(
-                'Insert INTO users (summoner_name, account_id, discord_name) VALUES ($1, $2, $3) returning *', 
-                [summoner_name, account_id, discord_name], 
+                'Insert INTO users (summoner_name, puuid, discord_name) VALUES ($1, $2, $3) returning *', 
+                [summoner_name, puuid, discord_name], 
                 (error, results) => {
                     if (error) {
                         log('Express (post): ' + error)

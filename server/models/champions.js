@@ -1,13 +1,11 @@
 const { pool } = require('../config')
 const debug = require('debug');
-const log = debug('express:teams');
-
-const axios = require('axios');
+const log = debug('express:champions');
 
 const get = (request, response) => {
     try {
         pool.query(
-            'SELECT * FROM teams ORDER BY id ASC', 
+            'SELECT * FROM champions ORDER BY id ASC', 
             (error, results) => {
                 if (error) {
                     log('Express (get): ' + error)
@@ -30,7 +28,7 @@ const getByID = (request, response) => {
 
     try {
         pool.query(
-            'SELECT * FROM teams where id = $1', 
+            'SELECT * FROM champions where id = $1', 
             [id], 
             (error, results) => {
                 if (error) {
@@ -50,12 +48,12 @@ const getByID = (request, response) => {
 }
 
 const post = (request, response) => {
-    const { name, group_name } = request.body
+    const { key, name } = request.body
 
     try {
         pool.query(
-            'Insert INTO teams (name, group_name) VALUES ($1, $2) returning *', 
-            [name, group_name], 
+            'Insert INTO champions (key, name) VALUES ($1, $2) returning *', 
+            [key, name], 
             (error, results) => {
                 if (error) {
                     log('Express (post): ' + error)
