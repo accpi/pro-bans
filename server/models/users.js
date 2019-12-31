@@ -10,7 +10,6 @@ const get = (request, response) => {
             'SELECT * FROM users ORDER BY id ASC', 
             (error, results) => {
                 if (error) {
-                    log('Express (get): ' + error)
                     response.status(500).send(error)
                 }
                 else {
@@ -20,7 +19,6 @@ const get = (request, response) => {
         )
     }
     catch (error) {
-        log('Express (get): ' + error)
         response.status(500).send(error)
     }
 }
@@ -34,7 +32,6 @@ const getByID = (request, response) => {
             [id], 
             (error, results) => {
                 if (error) {
-                    log('Express (getByID): ' + error)
                     response.status(500).send(error)
                 }
                 else {
@@ -44,7 +41,6 @@ const getByID = (request, response) => {
         )
     }
     catch (error) {
-        log('Express (getByID): ' + error)
         response.status(500).send(error)
     }
 }
@@ -65,7 +61,6 @@ const post = (request, response) => {
                 [summoner_name, res.data.puuid, discord_name, res.data.accountId, res.data.id], 
                 (error, results) => {
                     if (error) {
-                        log('Express (post): ' + error)
                         response.status(500).send(error)  
                     }
                     else {
@@ -75,7 +70,6 @@ const post = (request, response) => {
             )
         }
         catch (error) {
-            log('Express (post): ' + error)
             response.status(500).send(error)
         }
     })
@@ -89,7 +83,6 @@ const update = (request, response) => {
 
     axios.get('http://localhost:3000/users/' + id)
     .then(res => {
-        
         axios.get(
             'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + res.data[0].summoner_name, 
             {
@@ -103,7 +96,6 @@ const update = (request, response) => {
                     [res_a.data.puuid, res_a.data.accountId, res_a.data.id, id], 
                     (error, results) => {
                         if (error) {
-                            log('Express (update): ' + error)
                             response.status(500).send(error)
                         }
                         else {
@@ -113,7 +105,6 @@ const update = (request, response) => {
                 )
             }
             catch (error) {
-                log('Express (update): ' + error)
                 response.status(500).send(error)
             }
         })

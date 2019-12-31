@@ -17,7 +17,7 @@ app.use(
     })
 )
 app.use(cors())
-app.use(expressLogger);
+
 
 const port = 3000
 
@@ -48,7 +48,11 @@ app.get('/match_histories', match_histories.get)
 app.get('/match_histories/:id', match_histories.getByID)
 app.get('/match_histories/user/:id', match_histories.getByUserID)
 app.post('/match_histories', match_histories.post)
+app.post('/match_histories_string', match_histories.post_string)
 
+const matches = require('./models/matches')
+app.get('/match_list/:id', matches.getMatchList)
+app.post('/matches/:id', matches.postMatches)
 
 
 
