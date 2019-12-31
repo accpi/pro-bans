@@ -69,7 +69,6 @@ const getByUserID = (request, response) => {
 
 const post = (request, response) => {
     const { user_id, match_id, champion_id, lane, result, team, kills, deaths, assists, vision_score, match_date } = request.body
-    console.log(request.body)
     try {
         pool.query(`INSERT INTO match_histories 
                                 (user_id, match_id, champion_id, lane, result, team, kills, deaths, assists, vision_score, match_date)

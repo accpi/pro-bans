@@ -10,6 +10,7 @@ const get = (request, response) => {
             'SELECT * FROM users ORDER BY id ASC', 
             (error, results) => {
                 if (error) {
+                    console.log(error)
                     response.status(500).send(error)
                 }
                 else {
@@ -19,6 +20,7 @@ const get = (request, response) => {
         )
     }
     catch (error) {
+        console.log(error)
         response.status(500).send(error)
     }
 }
@@ -32,6 +34,7 @@ const getByID = (request, response) => {
             [id], 
             (error, results) => {
                 if (error) {
+                    console.log(error)
                     response.status(500).send(error)
                 }
                 else {
@@ -41,6 +44,7 @@ const getByID = (request, response) => {
         )
     }
     catch (error) {
+        console.log(error)
         response.status(500).send(error)
     }
 }
@@ -54,6 +58,7 @@ const getBySummonerID = (request, response) => {
             [id], 
             (error, results) => {
                 if (error) {
+                    console.log(error)
                     response.status(500).send(error)
                 }
                 else {
@@ -63,6 +68,7 @@ const getBySummonerID = (request, response) => {
         )
     }
     catch (error) {
+        console.log(error)
         response.status(500).send(error)
     }
 }
@@ -83,6 +89,7 @@ const post = (request, response) => {
                 [summoner_name, res.data.puuid, discord_name, res.data.accountId, res.data.id], 
                 (error, results) => {
                     if (error) {
+                        console.log(error)
                         response.status(500).send(error)  
                     }
                     else {
@@ -92,10 +99,12 @@ const post = (request, response) => {
             )
         }
         catch (error) {
+            console.log(error)
             response.status(500).send(error)
         }
     })
     .catch(error => {
+        console.log(error)
         response.status(500).json(error)
     });
 }
@@ -118,6 +127,7 @@ const update = (request, response) => {
                     [res_a.data.puuid, res_a.data.accountId, res_a.data.id, id], 
                     (error, results) => {
                         if (error) {
+                            console.log(error)
                             response.status(500).send(error)
                         }
                         else {
@@ -127,14 +137,17 @@ const update = (request, response) => {
                 )
             }
             catch (error) {
+                console.log(error)
                 response.status(500).send(error)
             }
         })
         .catch(error => {
+            console.log(error)
             response.status(500).json(error)
         });
     })
     .catch(error => {
+        console.log(error)
         response.status(500).json(error)
     });
 

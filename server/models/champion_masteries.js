@@ -13,7 +13,6 @@ const getBySummonerID = (request, response) => {
         }
     )
     .then(res => {
-        console.log(res.data)
         response.status(200).json(res.data)
     })
     .catch(error => {
