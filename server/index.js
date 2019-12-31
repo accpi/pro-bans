@@ -30,6 +30,7 @@ const users = require('./models/users')
 app.get('/users', users.get)
 app.get('/users/:id', users.getByID)
 app.post('/users', users.post)
+app.put('/users/:id', users.update)
 
 const teams = require('./models/teams')
 app.get('/teams', teams.get)

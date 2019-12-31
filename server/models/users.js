@@ -59,11 +59,10 @@ const post = (request, response) => {
         }
     )
     .then(res => {
-        puuid = res.data.puuid
         try {
             pool.query(
-                'Insert INTO users (summoner_name, puuid, discord_name) VALUES ($1, $2, $3) returning *', 
-                [summoner_name, puuid, discord_name], 
+                'Insert INTO users (summoner_name, puuid, discord_name, account_id, summoner_id) VALUES ($1, $2, $3, $4, $5) returning *', 
+                [summoner_name, res.data.puuid, discord_name, res.data.accountId, res.data.id], 
                 (error, results) => {
                     if (error) {
                         log('Express (post): ' + error)
@@ -83,11 +82,54 @@ const post = (request, response) => {
     .catch(error => {
         response.status(500).json(error)
     });
+}
+
+const update = (request, response) => {
+    const id = parseInt(request.params.id)
+
+    axios.get('http://localhost:3000/users/' + id)
+    .then(res => {
+        
+        axios.get(
+            'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + res.data[0].summoner_name, 
+            {
+                headers: { 'X-Riot-Token': process.env.RIOT_API_KEY }
+            }
+        )
+        .then(res_a => {
+            try {
+                pool.query(
+                    'UPDATE users SET puuid = $1, account_id = $2, summoner_id = $3 where id = $4 returning *', 
+                    [res_a.data.puuid, res_a.data.accountId, res_a.data.id, id], 
+                    (error, results) => {
+                        if (error) {
+                            log('Express (update): ' + error)
+                            response.status(500).send(error)
+                        }
+                        else {
+                            response.status(201).send(results.rows[0])
+                        }
+                    }
+                )
+            }
+            catch (error) {
+                log('Express (update): ' + error)
+                response.status(500).send(error)
+            }
+        })
+        .catch(error => {
+            response.status(500).json(error)
+        });
+    })
+    .catch(error => {
+        response.status(500).json(error)
+    });
 
 }
 
 module.exports = {
     get,
     getByID,
-    post
+    post,
+    update
 }
