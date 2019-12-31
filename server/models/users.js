@@ -45,6 +45,28 @@ const getByID = (request, response) => {
     }
 }
 
+const getBySummonerID = (request, response) => {
+    const id = request.params.id
+
+    try {
+        pool.query(
+            'SELECT * FROM users where summoner_name = $1', 
+            [id], 
+            (error, results) => {
+                if (error) {
+                    response.status(500).send(error)
+                }
+                else {
+                    response.status(200).json(results.rows)
+                }
+            }
+        )
+    }
+    catch (error) {
+        response.status(500).send(error)
+    }
+}
+
 const post = (request, response) => {
     const { summoner_name, discord_name } = request.body
 
@@ -121,6 +143,7 @@ const update = (request, response) => {
 module.exports = {
     get,
     getByID,
+    getBySummonerID,
     post,
     update
 }

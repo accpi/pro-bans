@@ -21,6 +21,14 @@ app.use(cors())
 
 const port = 3000
 
+/* Routes for Simple Team Bans */
+
+const champion_masteries = require('./models/champion_masteries')
+app.get('/champion_masteries/:id', champion_masteries.getBySummonerID)
+
+
+/* Routes for DB Team Bans */
+
 const champions = require('./models/champions')
 app.get('/champions', champions.get)
 app.get('/champions/:id', champions.getByID)
@@ -29,6 +37,7 @@ app.post('/champions', champions.post)
 const users = require('./models/users')
 app.get('/users', users.get)
 app.get('/users/:id', users.getByID)
+app.get('/users/summoner/:id', users.getBySummonerID)
 app.post('/users', users.post)
 app.put('/users/:id', users.update)
 
