@@ -21,6 +21,11 @@ app.use(expressLogger);
 
 const port = 3000
 
+const champions = require('./models/champions')
+app.get('/champions', champions.get)
+app.get('/champions/:id', champions.getByID)
+app.post('/champions', champions.post)
+
 const users = require('./models/users')
 app.get('/users', users.get)
 app.get('/users/:id', users.getByID)

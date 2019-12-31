@@ -48,12 +48,12 @@ const getByID = (request, response) => {
 }
 
 const post = (request, response) => {
-    const { key, name } = request.body
+    const { id, name, display_name } = request.body
 
     try {
         pool.query(
-            'Insert INTO champions (key, name) VALUES ($1, $2) returning *', 
-            [key, name], 
+            'Insert INTO champions (id, name, display_name) VALUES ($1, $2, $3) returning *', 
+            [id, name, display_name], 
             (error, results) => {
                 if (error) {
                     log('Express (post): ' + error)
