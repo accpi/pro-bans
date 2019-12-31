@@ -50,7 +50,7 @@ const getBySummonerID = (request, response) => {
 
     try {
         pool.query(
-            'SELECT * FROM users where summoner_name = $1', 
+            'SELECT * FROM users where LOWER(summoner_name) = LOWER($1)', 
             [id], 
             (error, results) => {
                 if (error) {
