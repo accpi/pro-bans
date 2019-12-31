@@ -24,11 +24,11 @@ const getMatchList = (request, response) => {
             response.status(200).json(json_reverse)
         })
         .catch(error => {
-            response.status(200).json(error)
+            response.status(500).json(error)
         });
     })
     .catch(error => {
-        response.status(200).json(error)
+        response.status(500).json(error)
     });
 }
 
@@ -91,7 +91,7 @@ const postMatches = (request, response) => {
         }
     })
     .catch(error => {
-        response.status(200).send("error")
+        response.status(500).send("error")
     })
 
     response.status(200).json("match_histories")
