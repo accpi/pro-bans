@@ -130,19 +130,19 @@ function App() {
 	const [champions, set_champions] = useState(null)
 	const [champions_set, set_champions_set] = useState(false)
 
-    const [top, set_top] = useState('Ryujinism')
+    const [top, set_top] = useState('')
 	const [top_masteries, set_top_masteries] = useState({ masteries: null })
 	const [top_rank, set_top_rank] = useState({ queue: null })
-	const [jungle, set_jungle] = useState('you go chinatown')
+	const [jungle, set_jungle] = useState('')
 	const [jungle_masteries, set_jungle_masteries] = useState({ masteries: null })
 	const [jungle_rank, set_jungle_rank] = useState({ queue: null })
-    const [mid, set_mid] = useState('Emy')
+    const [mid, set_mid] = useState('')
 	const [mid_masteries, set_mid_masteries] = useState({ masteries: null })
 	const [mid_rank, set_mid_rank] = useState({ queue: null })
-    const [marksman, set_marksman] = useState('SKT T1 Luda')
+    const [marksman, set_marksman] = useState('')
 	const [marksman_masteries, set_marksman_masteries] = useState({ masteries: null })
 	const [marksman_rank, set_marksman_rank] = useState({ queue: null })
-    const [support, set_support] = useState('bernardhibou')
+    const [support, set_support] = useState('')
 	const [support_masteries, set_support_masteries] = useState({ masteries: null })
 	const [support_rank, set_support_rank] = useState({ queue: null })
 
@@ -232,7 +232,7 @@ function App() {
 
 				<div>
 					<button 
-					class="btn btn-three"
+					className={ "btn btn-three" }
 					onClick={() => {
 						set_redirect(false)
 						set_loading(false)
@@ -355,7 +355,7 @@ function App() {
 						</tbody>
 					</table>
 					
-					<button class="btn btn-two">
+					<button className={ "btn btn-two" }>
 						{
 							loading ?
 							<span>Scouting...</span> :
