@@ -9,9 +9,11 @@ async function findSummoner(summoner_name) {
         .then(res => {
             if(res.data.length) {
                 getMasteries(res.data[0].summoner_id)
-				.then(function (masteries) {		
-					console.log(masteries)
-					resolve(masteries)
+				.then(function (masteries) {
+					axios.get('http://localhost:3000/rank/' + res.data[0].summoner_id)
+					.then(res_a => {
+						resolve({masteries: masteries, solo_queue: res_a.data})
+					})
 				})
             }
             else {
@@ -91,19 +93,29 @@ function ChampionMasteriesDisplay (props) {
 			<tbody>
 				<tr>
 					<td>
-						<MasteryDisplay masteries={ props.top_masteries.masteries } summoner_name={ props.top } />
+						<MasteryDisplay 
+							masteries={ props.top_masteries.masteries } summoner_name={ props.top } rank={ props.top_rank }
+						/>
 					</td>
 					<td>
-						<MasteryDisplay masteries={ props.jungle_masteries.masteries } summoner_name={ props.jungle } />
+						<MasteryDisplay 
+							masteries={ props.jungle_masteries.masteries } summoner_name={ props.jungle } rank={ props.jungle_rank } 
+						/>
 					</td>
 					<td>
-						<MasteryDisplay masteries={ props.mid_masteries.masteries } summoner_name={ props.mid } />
+						<MasteryDisplay 
+							masteries={ props.mid_masteries.masteries } summoner_name={ props.mid } rank={ props.mid_rank } 
+						/>
 					</td>
 					<td>
-						<MasteryDisplay masteries={ props.marksman_masteries.masteries } summoner_name={ props.marksman } />
+						<MasteryDisplay 
+							masteries={ props.marksman_masteries.masteries } summoner_name={ props.marksman } rank={ props.marksman_rank } 
+						/>
 					</td>
 					<td>
-						<MasteryDisplay masteries={ props.support_masteries.masteries } summoner_name={ props.support } />
+						<MasteryDisplay 
+							masteries={ props.support_masteries.masteries } summoner_name={ props.support } rank={ props.support_rank } 
+						/>
 					</td>
 				</tr>
 			</tbody>
@@ -114,16 +126,22 @@ function ChampionMasteriesDisplay (props) {
 function App() {
 	const [champions, set_champions] = useState(null)
 	const [champions_set, set_champions_set] = useState(false)
+
     const [top, set_top] = useState('Ryujinism')
 	const [top_masteries, set_top_masteries] = useState({ masteries: null })
+	const [top_rank, set_top_rank] = useState({ queue: null })
 	const [jungle, set_jungle] = useState('you go chinatown')
-    const [jungle_masteries, set_jungle_masteries] = useState({ masteries: null })
+	const [jungle_masteries, set_jungle_masteries] = useState({ masteries: null })
+	const [jungle_rank, set_jungle_rank] = useState({ queue: null })
     const [mid, set_mid] = useState('Emy')
-    const [mid_masteries, set_mid_masteries] = useState({ masteries: null })
+	const [mid_masteries, set_mid_masteries] = useState({ masteries: null })
+	const [mid_rank, set_mid_rank] = useState({ queue: null })
     const [marksman, set_marksman] = useState('SKT T1 Luda')
-    const [marksman_masteries, set_marksman_masteries] = useState({ masteries: null })
+	const [marksman_masteries, set_marksman_masteries] = useState({ masteries: null })
+	const [marksman_rank, set_marksman_rank] = useState({ queue: null })
     const [support, set_support] = useState('NAquariti')
-    const [support_masteries, set_support_masteries] = useState({ masteries: null })
+	const [support_masteries, set_support_masteries] = useState({ masteries: null })
+	const [support_rank, set_support_rank] = useState({ queue: null })
 
     const [redirect, set_redirect] = useState(false)
 
@@ -144,7 +162,8 @@ function App() {
 		
         findSummoner(top)
         .then(async value => {
-			return joinChampionsMasteries(champions, value)
+			set_top_rank(value.solo_queue)
+			return joinChampionsMasteries(champions, value.masteries)
 		})
 		.then(function (result) {
 			set_top_masteries({masteries: result})
@@ -152,7 +171,8 @@ function App() {
 
 		findSummoner(jungle)
         .then(async value => {
-			return joinChampionsMasteries(champions, value)
+			set_jungle_rank(value.solo_queue)
+			return joinChampionsMasteries(champions, value.masteries)
 		})
 		.then(function (result) {
 			set_jungle_masteries({masteries: result})
@@ -160,7 +180,8 @@ function App() {
 		
 		findSummoner(mid)
         .then(async value => {
-			return joinChampionsMasteries(champions, value)
+			set_mid_rank(value.solo_queue)
+			return joinChampionsMasteries(champions, value.masteries)
 		})
 		.then(function (result) {
 			set_mid_masteries({masteries: result})
@@ -168,7 +189,8 @@ function App() {
 
 		findSummoner(marksman)
         .then(async value => {
-			return joinChampionsMasteries(champions, value) 
+			set_marksman_rank(value.solo_queue)
+			return joinChampionsMasteries(champions, value.masteries) 
 		})
 		.then(function (result) {
 			set_marksman_masteries({masteries: result})
@@ -176,7 +198,8 @@ function App() {
 
 		findSummoner(support)
         .then(async value => {
-			return joinChampionsMasteries(champions, value)
+			set_support_rank(value.solo_queue)
+			return joinChampionsMasteries(champions, value.masteries)
 		})
 		.then(function (result) {
 			set_support_masteries({masteries: result})
@@ -194,11 +217,11 @@ function App() {
 		return (
 			<div>
 				<ChampionMasteriesDisplay 
-					top={ top } top_masteries={ top_masteries } 
-					jungle={ jungle } jungle_masteries={ jungle_masteries } 
-					mid={ mid } mid_masteries={ mid_masteries } 
-					marksman={ marksman } marksman_masteries={ marksman_masteries } 
-					support={ support } support_masteries={ support_masteries }
+					top={ top } top_masteries={ top_masteries } top_rank={ top_rank }
+					jungle={ jungle } jungle_masteries={ jungle_masteries } jungle_rank={ jungle_rank }
+					mid={ mid } mid_masteries={ mid_masteries } mid_rank={ mid_rank }
+					marksman={ marksman } marksman_masteries={ marksman_masteries } marksman_rank={ marksman_rank }
+					support={ support } support_masteries={ support_masteries } support_rank={ support_rank }
 				/>
 
 				<div>
