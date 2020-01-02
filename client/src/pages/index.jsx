@@ -1,6 +1,7 @@
 import React, { useState, useEffect  } from 'react'
 import axios from 'axios'
 import MasteryDisplay from '../components/mastery_display'
+import style from '../styling/poho.module.css';
 
 async function findSummoner(summoner_name) {
     return new Promise(resolve => {
@@ -81,14 +82,32 @@ function joinChampionsMasteries(champions, masteries) {
 	})
 }
 
-function foo(summoner_name, champions) {
-	findSummoner(summoner_name)
-	.then(async value => {
-		return joinChampionsMasteries(champions, value)
-	})
-	.then(function (result) {
-			return result
-	})
+function ChampionMasteriesDisplay (props) {
+	return (
+		<table className={ style.mastery_table}>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<MasteryDisplay masteries={ props.top_masteries.masteries } summoner_name={ props.top } />
+					</td>
+					<td>
+						<MasteryDisplay masteries={ props.jungle_masteries.masteries } summoner_name={ props.jungle } />
+					</td>
+					<td>
+						<MasteryDisplay masteries={ props.mid_masteries.masteries } summoner_name={ props.mid } />
+					</td>
+					<td>
+						<MasteryDisplay masteries={ props.marksman_masteries.masteries } summoner_name={ props.marksman } />
+					</td>
+					<td>
+						<MasteryDisplay masteries={ props.support_masteries.masteries } summoner_name={ props.support } />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	)
 }
 
 function App() {
@@ -102,7 +121,7 @@ function App() {
     const [mid_masteries, set_mid_masteries] = useState({ masteries: null })
     const [marksman, set_marksman] = useState('SKT T1 Luda')
     const [marksman_masteries, set_marksman_masteries] = useState({ masteries: null })
-    const [support, set_support] = useState('Recallings')
+    const [support, set_support] = useState('NAquariti')
     const [support_masteries, set_support_masteries] = useState({ masteries: null })
 
     const [redirect, set_redirect] = useState(false)
@@ -172,76 +191,139 @@ function App() {
     
     if (redirect) {    
 		return (
-			<div style={{ textAlign: 'center' }}>
-				<div style={{ display: 'inline-flex', margin: '0 auto' }}>
-					<MasteryDisplay masteries={ top_masteries.masteries } summoner_name={ top } />
-					<MasteryDisplay masteries={ jungle_masteries.masteries } summoner_name={ jungle } />
-					<MasteryDisplay masteries={ mid_masteries.masteries } summoner_name={ mid } />
-					<MasteryDisplay masteries={ marksman_masteries.masteries } summoner_name={ marksman } />
-					<MasteryDisplay masteries={ support_masteries.masteries } summoner_name={ support } />
+			<div>
+				<ChampionMasteriesDisplay 
+					top={ top } top_masteries={ top_masteries } 
+					jungle={ jungle } jungle_masteries={ jungle_masteries } 
+					mid={ mid } mid_masteries={ mid_masteries } 
+					marksman={ marksman } marksman_masteries={ marksman_masteries } 
+					support={ support } support_masteries={ support_masteries }
+				/>
+
+				<div>
+					<button onClick={() => {
+						set_redirect(false)
+					}}>
+						Scout New Team
+					</button>
 				</div>
 			</div>
 		)
     }
     else {
         return (
-			<div style={{ textAlign: 'center' }}>
-				<div style={{ display: 'inline-block' }}>
-					<form onSubmit={ handleSubmit }> 
-						<table>
-							<thead>
-								<tr>
-									<th>Top</th>
-									<th>Jungle</th>
-									<th>Mid</th>
-									<th>Marksman</th>
-									<th>Support</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										<input 
-											type='text' placeholder='Summoner Name' required
-											value={ top } onChange={ e => set_top(e.target.value) }
-											style={{ textAlign: 'center'}}
-										/>
-									</td>
-									<td>
-										<input 
-											type='text' placeholder='Summoner Name' 
-											value={ jungle } onChange={ e => set_jungle(e.target.value) }
-											style={{ textAlign: 'center'}}
-										/>
-									</td>
-									<td>
-										<input 
-											type='text' placeholder='Summoner Name' 
-											value={ mid } onChange={ e => set_mid(e.target.value) }
-											style={{ textAlign: 'center'}}
-										/>
-									</td>
-									<td>
-										<input 
-											type='text' placeholder='Summoner Name' 
-											value={ marksman } onChange={ e => set_marksman(e.target.value) }
-											style={{ textAlign: 'center'}}
-										/>
-									</td>
-									<td>
-										<input 
-											type='text' placeholder='Summoner Name' 
-											value={ support } onChange={ e => set_support(e.target.value) }
-											style={{ textAlign: 'center'}}
-										/>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<button type='submit'>Scout!</button>
-					</form>
-				</div>   
-			</div>
+			<div>
+				<form onSubmit={ handleSubmit }> 
+					<table>
+						<thead></thead>
+						<tbody>
+							<tr>
+								<td>
+									<table className={ style.summoner_table }>
+										<thead>
+											<tr>
+												<th>Top</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<input 
+														type='text' placeholder='Summoner Name' required
+														value={ top } onChange={ e => set_top(e.target.value) }
+														style={{ textAlign: 'center'}}
+													/>
+												</td>
+											</tr>
+										</tbody>
+									</table>	
+								</td>
+								<td>
+									<table className={ style.summoner_table }>
+										<thead>
+											<tr>
+												<th>Jungle</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<input 
+														type='text' placeholder='Summoner Name' required
+														value={ jungle } onChange={ e => set_jungle(e.target.value) }
+														style={{ textAlign: 'center'}}
+													/>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td>
+									<table className={ style.summoner_table }>
+										<thead>
+											<tr>
+												<th>Mid</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<input 
+														type='text' placeholder='Summoner Name' required
+														value={ mid } onChange={ e => set_mid(e.target.value) }
+														style={{ textAlign: 'center'}}
+													/>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td>
+									<table className={ style.summoner_table }>
+										<thead>
+											<tr>
+												<th>Marksman</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<input 
+														type='text' placeholder='Summoner Name' required
+														value={ marksman } onChange={ e => set_marksman(e.target.value) }
+														style={{ textAlign: 'center'}}
+													/>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td>
+									<table className={ style.summoner_table }>
+										<thead>
+											<tr>
+												<th>Support</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<input 
+														type='text' placeholder='Summoner Name' required
+														value={ support } onChange={ e => set_support(e.target.value) }
+														style={{ textAlign: 'center'}}
+													/>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<button type='submit'>Scout!</button>
+				</form>
+			</div>   
         )
     }
     

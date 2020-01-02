@@ -1,0 +1,47 @@
+table {
+    width: 80%; 
+    margin: 0 auto; 
+    margin-bottom: 12px;
+}
+
+thead tr th {
+    padding-bottom: 12px;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.mastery_table td {
+    vertical-align: top;
+}
+
+.champion_mastery {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.champion_mastery td:last-of-type {
+    vertical-align: middle;
+}
+
+.champion_mastery img {
+    width: 50px;
+    height: 50px;
+}
+
+.champion_mastery tr {
+    width: 100%;
+}
+
+.champion_mastery p {
+    font-size: large;
+}
+
+.summoner_table  {
+    border: black 1px solid;
+    width: 200px;
+    border-radius: 5px;
+}

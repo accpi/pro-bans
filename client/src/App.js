@@ -4,11 +4,15 @@ import './App.css';
 import Header from './layout/header';
 import Home from './pages/index';
 
+import style from './styling/poho.module.css'
+
 function App(props) {
   return (
-		<div style={{ width:"80%", margin: "auto" }}>
+		<div className={ style.container }>
 			<Header />
-			<Home />
+			<div className={ style.container }>
+				<Home />
+			</div>
 		</div>
   );
 }
