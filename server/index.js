@@ -8,6 +8,8 @@ const expressPino = require('express-pino-logger');
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const expressLogger = expressPino({ logger });
 
+const axios = require('axios');
+
 const app = express()
 
 app.use(bodyParser.json())
@@ -63,8 +65,36 @@ const matches = require('./models/matches')
 app.get('/match_list/:id', matches.getMatchList)
 app.post('/matches/:id', matches.postMatches)
 
+app.get('/rank/:id', function (request, response) {
+    const id = request.params.id
 
-
+    try {
+        axios.get(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/` + id, 
+        {
+            headers: { 'X-Riot-Token': process.env.RIOT_API_KEY }
+        })
+        .then(res => {
+            console.log(res.data)
+            new Promise(resolve => {
+                res.data.forEach(queue => {
+                    if(queue.queueType === 'RANKED_SOLO_5x5') {
+                        resolve(queue)
+                    }
+                })
+            })
+            .then(function (queue) {
+                response.status(200).json(queue)
+            })
+        })
+        .catch(error => {
+            console.log(error)
+            response.status(500).send(error)
+        })
+    } catch (error) {
+        console.log(error)
+        response.status(500).json(error)
+    }
+})
 
 
 

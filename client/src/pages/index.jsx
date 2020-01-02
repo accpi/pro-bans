@@ -9,9 +9,10 @@ async function findSummoner(summoner_name) {
         .then(res => {
             if(res.data.length) {
                 getMasteries(res.data[0].summoner_id)
-                .then(function(value) {
-                    resolve(value)
-                })
+				.then(function (masteries) {		
+					console.log(masteries)
+					resolve(masteries)
+				})
             }
             else {
                 axios.post(`http://localhost:3000/users`, {

@@ -2,8 +2,6 @@ const { pool } = require('../config')
 const debug = require('debug');
 const log = debug('express:teams');
 
-const axios = require('axios');
-
 const get = (request, response) => {
     try {
         pool.query(
