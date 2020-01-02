@@ -74,15 +74,24 @@ app.get('/rank/:id', function (request, response) {
             headers: { 'X-Riot-Token': process.env.RIOT_API_KEY }
         })
         .then(res => {
-            console.log(res.data)
             new Promise(resolve => {
-                res.data.forEach(queue => {
-                    if(queue.queueType === 'RANKED_SOLO_5x5') {
-                        resolve(queue)
-                    }
-                })
+                console.log(res.data)
+                if(res.data.length > 0) {
+                    res.data.forEach(queue => {
+                        if(queue.queueType === 'RANKED_SOLO_5x5') {
+                            resolve(queue)
+                        }
+                        else {
+                            resolve({})
+                        }
+                    })
+                }
+                else {
+                    resolve({})
+                }
             })
             .then(function (queue) {
+                console.log(queue)
                 response.status(200).json(queue)
             })
         })

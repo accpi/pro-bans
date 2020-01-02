@@ -22,9 +22,12 @@ async function findSummoner(summoner_name) {
                 })
                 .then(res_post => {
                     getMasteries(res_post.data.summoner_id)
-                    .then(function(value) {
-                        resolve(value)
-                    })
+					.then(function (masteries) {
+						axios.get('http://localhost:3000/rank/' + res_post.data.summoner_id)
+						.then(res_a => {
+							resolve({masteries: masteries, solo_queue: res_a.data})
+						})
+					})
                 })
                 .catch(error_post => {
                     console.log(error_post)
@@ -139,7 +142,7 @@ function App() {
     const [marksman, set_marksman] = useState('SKT T1 Luda')
 	const [marksman_masteries, set_marksman_masteries] = useState({ masteries: null })
 	const [marksman_rank, set_marksman_rank] = useState({ queue: null })
-    const [support, set_support] = useState('NAquariti')
+    const [support, set_support] = useState('bernardhibou')
 	const [support_masteries, set_support_masteries] = useState({ masteries: null })
 	const [support_rank, set_support_rank] = useState({ queue: null })
 
