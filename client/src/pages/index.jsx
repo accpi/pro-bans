@@ -146,6 +146,7 @@ function App() {
 	const [support_masteries, set_support_masteries] = useState({ masteries: null })
 	const [support_rank, set_support_rank] = useState({ queue: null })
 
+	const [loading, set_loading] = useState(false)
     const [redirect, set_redirect] = useState(false)
 
 	useEffect(() => {
@@ -208,6 +209,8 @@ function App() {
 			set_support_masteries({masteries: result})
 		})
 
+		set_loading(true)
+
 		new Promise(resolve => {
 			setTimeout(() => {
 				resolve(set_redirect(true))
@@ -228,10 +231,13 @@ function App() {
 				/>
 
 				<div>
-					<button onClick={() => {
+					<button 
+					class="btn btn-three"
+					onClick={() => {
 						set_redirect(false)
+						set_loading(false)
 					}}>
-						Scout New Team
+						Scout Again
 					</button>
 				</div>
 			</div>
@@ -348,7 +354,14 @@ function App() {
 							</tr>
 						</tbody>
 					</table>
-					<button type='submit'>Scout!</button>
+					
+					<button class="btn btn-two">
+						{
+							loading ?
+							<span>Scouting...</span> :
+							<span>Scout!</span>
+						}
+					</button>
 				</form>
 			</div>   
         )

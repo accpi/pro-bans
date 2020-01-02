@@ -1,3 +1,21 @@
+body {
+    background-color:#4b6cb7;
+    border-color: white;
+    color: white;
+    font-size: 18px;
+    font-family: 'Work Sans', sans-serif;
+    overflow: hidden;
+}
+
+input {
+    background-color: #e3ecf8;
+    border-style: none;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 15px;
+}
+
 table {
     width: 80%; 
     margin: 0 auto; 
@@ -40,7 +58,10 @@ thead tr th {
 }
 
 .summoner_table  {
-    border: black 1px solid;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid;
     width: 200px;
     border-radius: 5px;
+    padding: 5px 10px 10px 10px;
 }
+

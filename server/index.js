@@ -75,7 +75,6 @@ app.get('/rank/:id', function (request, response) {
         })
         .then(res => {
             new Promise(resolve => {
-                console.log(res.data)
                 if(res.data.length > 0) {
                     res.data.forEach(queue => {
                         if(queue.queueType === 'RANKED_SOLO_5x5') {
@@ -91,16 +90,13 @@ app.get('/rank/:id', function (request, response) {
                 }
             })
             .then(function (queue) {
-                console.log(queue)
                 response.status(200).json(queue)
             })
         })
         .catch(error => {
-            console.log(error)
             response.status(500).send(error)
         })
     } catch (error) {
-        console.log(error)
         response.status(500).json(error)
     }
 })

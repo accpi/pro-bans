@@ -10,6 +10,7 @@ function ChampionMastery (props) {
                     alt={ props.champion_display_name + ' profile picture' }
                     title={ props.champion_display_name }
                     width='75px' height='75px'
+                    style={{ borderRadius: '50%' }}
                 />
             </td>
             <td><p>{ props.champion_points }</p></td>
