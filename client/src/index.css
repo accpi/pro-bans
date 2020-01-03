@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.fade-out{
+  opacity: 0;
+  transition: all 1500ms linear;
+}
+.fade-in{
+  opacity: 1;
+  transition: all 250ms linear;
+}

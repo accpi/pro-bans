@@ -221,7 +221,7 @@ function App() {
     
     if (redirect) {    
 		return (
-			<div>
+			<div className={ `${ loading ? 'fade-in' : 'fade-out' }` }>
 				<ChampionMasteriesDisplay 
 					top={ top } top_masteries={ top_masteries } top_rank={ top_rank }
 					jungle={ jungle } jungle_masteries={ jungle_masteries } jungle_rank={ jungle_rank }
@@ -247,7 +247,7 @@ function App() {
         return (
 			<div>
 				<form onSubmit={ handleSubmit }> 
-					<table>
+					<table className={ `${ loading ? 'fade-out' : '' }` }>
 						<thead></thead>
 						<tbody>
 							<tr>
