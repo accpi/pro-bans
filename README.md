@@ -9,6 +9,16 @@ There is code to store match data and keep store teams of Summoners for easy re-
 
 ![Process](/client/readme/process.gif "Process")
 
+### Example
+
+If you don't have summoner names to choose from, I picked from the [NA Ladder Rankings]([GitHub](http://github.com))
+
+* Tony Top
+* Santorin
+* Anivia Kid
+* John5un
+* Hakuho
+
 ## To Do
 
 * API validation
