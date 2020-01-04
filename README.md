@@ -17,7 +17,7 @@ npm start
 
 ## Screenshots
 
-![Home Page](./readme/mastery check.PNG)
+![Start Page](/client/readme/home.PNG?raw=true "Start Page")
 
 
 ## TODO
