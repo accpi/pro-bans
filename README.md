@@ -1,31 +1,18 @@
-# pro-bans
-League of Legends 5 Stack Ban Recommender
+# Mastery Check
+Based on the Clash scouting report, this tool mimics the mastery level checking function.
 
+The app was originally supposed to store match data to check recently played games by champion as well but I ran into Riot API rate limitations and had to pivot to just looking at the mastery level achieved.
 
-## Quick Overview
-```sh
-cd server
-npm install
-npm start
-```
+There is code to store match data and keep store teams of Summoners for easy re-checking of masteries + champion history, but because of the rate limits, that won't be implemented.
 
-```sh
-cd client
-npm install
-npm start
-```
+## Screenshot(s), a gif is multiple pictures :3
 
-## Screenshots
-
-![Start Page](/client/readme/home.PNG?raw=true "Start Page")
-![Results Page](/client/readme/results.PNG?raw=true "Results Page")
 ![Process](/client/readme/process.gif "Process")
 
+## To Do
 
-## TODO
+* API validation
+* More styling (page is super bare)
+* Server selection (currently only looks at NA)
 
-API validation
-
-Styling
-
-Server Selection
+I probably won't be implementing these updates, they're very simple to implement but there's League to play!
