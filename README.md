@@ -18,6 +18,8 @@ npm start
 ## Screenshots
 
 ![Start Page](/client/readme/home.PNG?raw=true "Start Page")
+![Results Page](/client/readme/results.PNG?raw=true "Results Page")
+![Process](/client/readme/process.gif "Process")
 
 
 ## TODO
