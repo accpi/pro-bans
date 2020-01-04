@@ -15,10 +15,15 @@ npm install
 npm start
 ```
 
+## Screenshots
+
+![Home Page](./readme/mastery check.PNG)
+
+
 ## TODO
 
 API validation
 
 Styling
 
-Everything else
+Server Selection
